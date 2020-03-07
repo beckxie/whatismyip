@@ -21,7 +21,7 @@ type Tmpl struct {
 const (
 	version     = "1.0.0 (2020-03-08)"
 	portDefault = 9999
-	tmplDefault = "./web/template/whereismyip.tmpl"
+	tmplDefault = "../web/template/whereismyip.tmpl"
 )
 
 var (
