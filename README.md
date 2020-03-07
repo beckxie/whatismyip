@@ -6,6 +6,9 @@
 - Show your real public IP address.
 - Show HTTP headers of your request.
 
+# Snapshots
+![demo](snapshots/demo.png)
+
 # Principles
 
 Get first value of HTTP header `X-Forwarded-For`(XFF).
