@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>whereismyip</title>
+    <meta name="description" content="This website can show your real public IP address.">
+    <meta name="keywords" content="where is my ip">
+    <meta name="copyright" content="Created by https://github.com/beckxie/whereismyip">
+</head>
+
+<body>
+    <h3>Your IP info:</h3>
+    {{ .IPInfo }}
+    <h3>Your Request HTTP header:</h3>
+    <ul>
+        {{ range $key, $value := .RequestHeader }}
+        <li>
+            {{ $key }}:{{ $value }}<br>
+        </li>
+        {{ end }}
+    </ul>
+</body>
+
+</html>
