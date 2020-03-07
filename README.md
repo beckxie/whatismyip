@@ -38,6 +38,8 @@ Get first value of HTTP header `X-Forwarded-For`(XFF).
 ```
   -p int
         http server port (default 9999)
+  -tmpl string
+        tmpl file (default "./web/template/whereismyip.tmpl")
   -v    version
 ```
 
