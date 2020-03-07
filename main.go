@@ -21,10 +21,12 @@ type Tmpl struct {
 const (
 	version     = "1.0.0 (2020-03-08)"
 	portDefault = 9999
+	tmplDefault = "./web/template/whereismyip.tmpl"
 )
 
 var (
 	port        int
+	tmplDir     string
 	showVersion bool
 	//LogInfo log level-INFO
 	LogInfo *log.Logger
@@ -37,6 +39,7 @@ var (
 func init() {
 
 	flag.BoolVar(&showVersion, "v", false, "version")
+	flag.StringVar(&tmplDir, "tmpl", tmplDefault, "tmpl file")
 	flag.IntVar(&port, "p", portDefault, "http server port")
 	flag.Parse()
 
@@ -81,7 +84,7 @@ func indexHandler(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	tmpl, err := template.ParseFiles("./web/template/whereismyip.tmpl")
+	tmpl, err := template.ParseFiles(tmplDir)
 	if err != nil {
 		LogError.Fatalf("Parse: %v", err)
 	}

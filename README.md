@@ -25,7 +25,7 @@ Get first value of HTTP header `X-Forwarded-For`(XFF).
     (See [proxy server config example].)
 
 [Principles]: #Principles
-[proxy server config example]: #example/proxy_config
+[proxy server config example]: example/proxy_config
 
 # Build
 1. `git clone https://github.com/beckxie/whereismyip.git`
