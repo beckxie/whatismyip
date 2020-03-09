@@ -1,3 +1,3 @@
-module github.com/beckxie/whereismyip
+module github.com/beckxie/whatismyip
 
 go 1.13

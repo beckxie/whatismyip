@@ -1,4 +1,4 @@
-# whereismyip
+# whatismyip
 
 > This ia a web server that can show your real public IP address.
 
@@ -24,14 +24,14 @@ Get first value of HTTP header `X-Forwarded-For`(XFF).
 - [Go (at least Go 1.11)](https://golang.org/dl/)
 - Proxy Server
 
-    According to [Principles], `whereismyip` need the proxy server.
+    According to [Principles], `whatismyip` need the proxy server.
     (See [proxy server config example].)
 
 [Principles]: #Principles
 [proxy server config example]: example/proxy_config
 
 # Build
-1. `git clone https://github.com/beckxie/whereismyip.git`
+1. `git clone https://github.com/beckxie/whatismyip.git`
 2. `make all`
 
 # Deployment
@@ -42,11 +42,11 @@ Get first value of HTTP header `X-Forwarded-For`(XFF).
   -p int
         http server port (default 9999)
   -tmpl string
-        tmpl file (default "../web/template/whereismyip.tmpl")
+        tmpl file (default "../web/template/whatismyip.tmpl")
   -v    version
 ```
 
-[download]: https://github.com/beckxie/whereismyip/releases
+[download]: https://github.com/beckxie/whatismyip/releases
 [build]: #Build
 
 # References

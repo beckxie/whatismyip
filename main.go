@@ -21,7 +21,7 @@ type Tmpl struct {
 const (
 	version     = "1.0.0 (2020-03-08)"
 	portDefault = 9999
-	tmplDefault = "../web/template/whereismyip.tmpl"
+	tmplDefault = "../web/template/whatismyip.tmpl"
 )
 
 var (
@@ -43,7 +43,7 @@ func init() {
 	flag.IntVar(&port, "p", portDefault, "http server port")
 	flag.Parse()
 
-	logFile, err := os.OpenFile("whereismyip.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	logFile, err := os.OpenFile("whatismyip.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalln("Open log file fail:", err)
 	}
