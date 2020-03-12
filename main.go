@@ -64,7 +64,8 @@ func main() {
 	}
 
 	LogInfo.Println("Listen port:", port)
-
+	fs := http.FileServer(http.Dir("./web/static"))
+	http.Handle("/web/static/", http.StripPrefix("/web/static/", fs))
 	http.HandleFunc("/", indexHandler)
 	LogError.Fatal(http.ListenAndServe(":"+strconv.Itoa(port), nil))
 }

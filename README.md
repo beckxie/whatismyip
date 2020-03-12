@@ -59,3 +59,6 @@ Get first value of HTTP header `X-Forwarded-For`(XFF).
 This project is licensed under the MIT License - see the [LICENSE] file for details
 
 [LICENSE]: ./LICENSE
+
+# Acknowledgments
+[GitHub Corners - tholman/github-corners](https://github.com/tholman/github-corners)
