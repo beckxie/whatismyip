@@ -6,8 +6,8 @@
 - Show your real public IP address.
 - Show HTTP headers of your request.
 
-# Snapshots
-![demo](snapshots/demo.png)
+# Screenshots
+![demo](screenshots/demo.png)
 
 # Principles
 
