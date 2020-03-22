@@ -1,4 +1,5 @@
 # whatismyip
+![GitHub](https://img.shields.io/github/license/beckxie/whatismyip?style=plastic)
 
 > This ia a web server that can show your real public IP address.
 
@@ -6,6 +7,12 @@
 
 - Show your real public IP address.
 - Show HTTP headers of your request.
+
+# Demo 
+
+![Website](https://img.shields.io/website?label=status&style=plastic&url=https%3A%2F%2Fip.beckxie.com)
+
+[whatismyip](https://ip.beckxie.com) 
 
 # Screenshots
 
@@ -69,3 +76,5 @@ This project is licensed under the MIT License - see the [LICENSE] file for deta
 # Acknowledgments
 
 [GitHub Corners - tholman/github-corners](https://github.com/tholman/github-corners)
+
+[shields.io - badges/shields ](https://shields.io/)
