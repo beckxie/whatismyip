@@ -1,5 +1,6 @@
 # whatismyip
 ![GitHub](https://img.shields.io/github/license/beckxie/whatismyip?style=plastic)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbeckxie%2Fwhatismyip.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbeckxie%2Fwhatismyip?ref=badge_shield)
 
 > This ia a web server that can show your real public IP address.
 
@@ -72,6 +73,9 @@ Get first value of HTTP header `X-Forwarded-For`(XFF).
 This project is licensed under the MIT License - see the [LICENSE] file for details
 
 [license]: ./LICENSE
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbeckxie%2Fwhatismyip.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbeckxie%2Fwhatismyip?ref=badge_large)
 
 # Acknowledgments
 
