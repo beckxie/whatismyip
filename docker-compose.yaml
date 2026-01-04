@@ -1,0 +1,29 @@
+services:
+  whatismyip:
+    build: .
+    image: beckxie/whatismyip:latest
+    restart: unless-stopped
+    ports:
+      - "9999:9999"
+    # For standalone usage, uncomment the following:
+    # environment:
+    #   - PORT=9999
+
+  # Reverse proxy with Caddy (optional)
+  # Uncomment this section if you need HTTPS and reverse proxy
+  # caddy:
+  #   image: caddy:2-alpine
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./example/proxy_config/Caddyfile:/etc/caddy/Caddyfile:ro
+  #     - caddy_data:/data
+  #     - caddy_config:/config
+  #   depends_on:
+  #     - whatismyip
+
+# volumes:
+#   caddy_data:
+#   caddy_config:
