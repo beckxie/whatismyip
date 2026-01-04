@@ -1,84 +1,149 @@
 # whatismyip
+
 ![GitHub](https://img.shields.io/github/license/beckxie/whatismyip?style=plastic)
+![Go Version](https://img.shields.io/badge/Go-1.23+-00ADD8?style=plastic&logo=go)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbeckxie%2Fwhatismyip.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbeckxie%2Fwhatismyip?ref=badge_shield)
 
-> This ia a web server that can show your real public IP address.
+> A simple web server that shows your real public IP address.
 
-# Features
+## Features
 
-- Show your real public IP address.
-- Show HTTP headers of your request.
+- 🌐 Show your real public IP address
+- 📋 Display HTTP headers of your request
+- 🔌 **API endpoint** for programmatic access
+- 🐳 Docker support with multi-stage build
 
-# Demo 
+## Demo
 
 ![Website](https://img.shields.io/website?label=status&style=plastic&url=https%3A%2F%2Fip.beckxie.com)
 
-[whatismyip](https://ip.beckxie.com) 
-
-# Screenshots
+[https://ip.beckxie.com](https://ip.beckxie.com)
 
 ![demo](screenshots/demo.png)
 
-# Principles
+## API Usage
 
-Get first value of HTTP header `X-Forwarded-For`(XFF).
+### Plain Text (for scripts)
 
-#### HTTP request (Example):
+```bash
+curl https://ip.beckxie.com/api/ip
+# Output: 203.0.113.45
+```
 
-> X-Forwarded-For: `client`, proxy1, proxy2
+### JSON Format (detailed info)
 
-> note: `HTTP header is modifiable`.
+```bash
+curl "https://ip.beckxie.com/api/ip?format=json"
+```
 
-# Prerequisites
+```json
+{
+  "ip": "203.0.113.45",
+  "version": "IPv4",
+  "network": {
+    "ipv4": "203.0.113.45",
+    "ipv6": ""
+  },
+  "request": {
+    "method": "GET",
+    "path": "/api/ip",
+    "user_agent": "curl/8.0.1"
+  },
+  "proxy": {
+    "detected": true,
+    "x_forwarded_for": "203.0.113.45",
+    "x_real_ip": "203.0.113.45"
+  },
+  "timestamp": "2026-01-04T19:30:00+08:00"
+}
+```
 
-- [Go (at least Go 1.11)](https://golang.org/dl/)
-- Proxy Server
+### Script Example
 
-  According to [Principles], `whatismyip` need the proxy server.
-  (See [proxy server config example].)
+```bash
+# Get IP and use in firewall rule
+MY_IP=$(curl -s https://ip.beckxie.com/api/ip)
+echo "Adding $MY_IP to firewall whitelist..."
+```
 
-[principles]: #Principles
-[proxy server config example]: example/proxy_config
+## How It Works
 
-# Build
+The server extracts the client IP from HTTP headers in this order:
 
-1. `git clone https://github.com/beckxie/whatismyip.git`
-2. `make all`
+1. `X-Forwarded-For` (first IP in the list)
+2. `X-Real-IP`
+3. `RemoteAddr` (direct connection fallback)
 
-# Deployment
+> ⚠️ HTTP headers can be modified by the client. For accurate IP detection, always use a trusted reverse proxy.
 
-1. Get the executable file by [build] or [download].
-2. Run executable file.
+## Quick Start
 
-### Usage
+### Using Docker (Recommended)
+
+```bash
+docker run -p 9999:9999 beckxie/whatismyip:latest
+```
+
+### Using Docker Compose
+
+```bash
+docker compose up -d
+```
+
+### Build from Source
+
+```bash
+# Clone the repository
+git clone https://github.com/beckxie/whatismyip.git
+cd whatismyip
+
+# Build and run
+make build
+./bin/whatismyip
+```
+
+## Command Line Options
 
 ```
+Usage of whatismyip:
   -p int
-        http server port (default 9999)
+        HTTP server port (default 9999)
   -tmpl string
-        tmpl file (default "../web/template/whatismyip.tmpl")
-  -v    version
+        Template file path (default "./web/template/whatismyip.tmpl")
+  -v    Show version
 ```
 
-[download]: https://github.com/beckxie/whatismyip/releases
-[build]: #Build
+## Deployment with Reverse Proxy
 
-# References
+For production use, deploy behind a reverse proxy (Caddy, Nginx) to:
+- Handle HTTPS/TLS
+- Set proper `X-Forwarded-For` headers
 
-- [HTTP headers | X-Forwarded-For](https://www.geeksforgeeks.org/http-headers-x-forwarded-for/)
-- [HTTP 请求头中的 X-Forwarded-For](https://imququ.com/post/x-forwarded-for-header-in-http.html)
+See [example/proxy_config/](example/proxy_config/) for configuration examples.
 
-# License
+## Development
 
-This project is licensed under the MIT License - see the [LICENSE] file for details
+```bash
+# Run tests
+make test
 
-[license]: ./LICENSE
+# Run linter
+make lint
 
+# Build for all platforms
+make build
+
+# Build Docker image
+make docker-build
+```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbeckxie%2Fwhatismyip.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbeckxie%2Fwhatismyip?ref=badge_large)
 
-# Acknowledgments
+## Acknowledgments
 
-[GitHub Corners - tholman/github-corners](https://github.com/tholman/github-corners)
-
-[shields.io - badges/shields ](https://shields.io/)
+- [GitHub Corners](https://github.com/tholman/github-corners)
+- [shields.io](https://shields.io/)

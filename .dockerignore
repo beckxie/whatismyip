@@ -1,0 +1,12 @@
+.git
+bin/
+*.tar.gz
+*.log
+screenshots/
+Dockerfile
+Makefile
+docker-compose.yaml
+example/
+README.md
+LICENSE
+.gitignore
