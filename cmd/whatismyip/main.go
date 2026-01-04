@@ -9,6 +9,7 @@ import (
 	"strconv"
 
 	"github.com/beckxie/whatismyip/internal/api"
+	"github.com/beckxie/whatismyip/internal/middleware"
 	"github.com/beckxie/whatismyip/internal/web"
 )
 
@@ -48,6 +49,9 @@ func main() {
 
 	apiHandler := api.NewHandler()
 
+	// Rate limiter: 1 request per second per IP
+	rateLimiter := middleware.NewRateLimiter(1, 1)
+
 	slog.Info("starting server", "port", port, "version", version)
 
 	// Static files
@@ -56,7 +60,7 @@ func main() {
 
 	// Routes
 	http.HandleFunc("/", webHandler.Index)
-	http.HandleFunc("/api/ip", apiHandler.GetIP)
+	http.Handle("/api/ip", rateLimiter.Limit(http.HandlerFunc(apiHandler.GetIP)))
 
 	addr := ":" + strconv.Itoa(port)
 	if err := http.ListenAndServe(addr, nil); err != nil {
