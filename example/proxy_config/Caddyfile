@@ -1,11 +1,13 @@
 foo.example.com {
-    log access_log.log
-    gzip
-    tls
-    proxy / 127.0.0.1:9999 {
-        header_upstream Host {host}
-        header_upstream X-Real-IP {remote}
-        header_upstream X-Forwarded-For {remote}
-        header_upstream X-Forwarded-Proto {scheme}
+    # Caddy v2 log configuration
+    log {
+        output file access_log.log
     }
+
+    # Caddy v2 compression
+    encode gzip
+
+    # Caddy v2 reverse proxy
+    # Note: Caddy v2 automatically sets X-Forwarded-For and X-Forwarded-Proto headers
+    reverse_proxy 127.0.0.1:9999
 }
