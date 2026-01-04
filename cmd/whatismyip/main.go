@@ -12,10 +12,13 @@ import (
 	"github.com/beckxie/whatismyip/internal/web"
 )
 
-const (
-	version     = "1.2.0 (2026-01-04)"
-	portDefault = 9999
+var (
+	version   = "dev"
+	commit    = "none"
+	buildDate = "unknown"
 )
+
+const portDefault = 9999
 
 func main() {
 	var showVersion bool
@@ -26,6 +29,8 @@ func main() {
 
 	if showVersion {
 		fmt.Printf("whatismyip version: %s\n", version)
+		fmt.Printf("commit: %s\n", commit)
+		fmt.Printf("build date: %s\n", buildDate)
 		return
 	}
 

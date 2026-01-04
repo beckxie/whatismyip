@@ -11,8 +11,15 @@ COPY go.mod ./
 
 COPY . .
 
+# Version information
+ARG VERSION=dev
+ARG COMMIT=none
+ARG BUILD_DATE=unknown
+
 # Build the binary
-RUN CGO_ENABLED=0 GOOS=linux go build -o bin/whatismyip ./cmd/whatismyip
+RUN CGO_ENABLED=0 GOOS=linux go build \
+    -ldflags "-X main.version=${VERSION} -X main.commit=${COMMIT} -X main.buildDate=${BUILD_DATE}" \
+    -o bin/whatismyip ./cmd/whatismyip
 
 # Final stage
 FROM gcr.io/distroless/static-debian12:nonroot

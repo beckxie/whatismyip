@@ -10,32 +10,39 @@ DOCKER_TAG?=latest
 DOCKER_OWNER?=beckxie
 DOCKER_IMAGE=$(DOCKER_OWNER)/$(APP_NAME):$(DOCKER_TAG)
 
+# Build information
+VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
+COMMIT  ?= $(shell git rev-parse --short HEAD 2>/dev/null || echo "none")
+BUILD_DATE ?= $(shell date -u +%Y-%m-%dT%H:%M:%SZ)
+
+LDFLAGS = -X main.version=$(VERSION) -X main.commit=$(COMMIT) -X main.buildDate=$(BUILD_DATE)
+
 .PHONY: all
 all: lint test build
 
 .PHONY: run
 run:
-	go run $(CMD_PATH)
+	go run -ldflags "$(LDFLAGS)" $(CMD_PATH)
 
 .PHONY: build
 build: build-linux build-darwin build-windows
 
 .PHONY: build-local
 build-local:
-	go build -o $(BIN_DIR)/$(APP_NAME) $(CMD_PATH)
+	go build -ldflags "$(LDFLAGS)" -o $(BIN_DIR)/$(APP_NAME) $(CMD_PATH)
 
 .PHONY: build-linux
 build-linux:
-	GOOS=$(OS_LINUX) GOARCH=amd64 CGO_ENABLED=0 go build -o $(BIN_DIR)/$(APP_NAME)-$(OS_LINUX)-amd64 $(CMD_PATH)
+	GOOS=$(OS_LINUX) GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "$(LDFLAGS)" -o $(BIN_DIR)/$(APP_NAME)-$(OS_LINUX)-amd64 $(CMD_PATH)
 
 .PHONY: build-darwin
 build-darwin:
-	GOOS=$(OS_DARWIN) GOARCH=amd64 CGO_ENABLED=0 go build -o $(BIN_DIR)/$(APP_NAME)-$(OS_DARWIN)-amd64 $(CMD_PATH)
-	GOOS=$(OS_DARWIN) GOARCH=arm64 CGO_ENABLED=0 go build -o $(BIN_DIR)/$(APP_NAME)-$(OS_DARWIN)-arm64 $(CMD_PATH)
+	GOOS=$(OS_DARWIN) GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "$(LDFLAGS)" -o $(BIN_DIR)/$(APP_NAME)-$(OS_DARWIN)-amd64 $(CMD_PATH)
+	GOOS=$(OS_DARWIN) GOARCH=arm64 CGO_ENABLED=0 go build -ldflags "$(LDFLAGS)" -o $(BIN_DIR)/$(APP_NAME)-$(OS_DARWIN)-arm64 $(CMD_PATH)
 
 .PHONY: build-windows
 build-windows:
-	GOOS=$(OS_WINDOWS) GOARCH=amd64 CGO_ENABLED=0 go build -o $(BIN_DIR)/$(APP_NAME)-$(OS_WINDOWS)-amd64.exe $(CMD_PATH)
+	GOOS=$(OS_WINDOWS) GOARCH=amd64 CGO_ENABLED=0 go build -ldflags "$(LDFLAGS)" -o $(BIN_DIR)/$(APP_NAME)-$(OS_WINDOWS)-amd64.exe $(CMD_PATH)
 
 .PHONY: test
 test:
