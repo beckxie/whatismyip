@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"text/template"
 
+	"time"
+
 	"github.com/beckxie/whatismyip/internal/ip"
 )
 
@@ -12,6 +14,7 @@ import (
 type TemplateData struct {
 	IPInfo        string
 	RequestHeader *http.Header
+	CurrentYear   int
 }
 
 // Handler handles web page requests.
@@ -35,6 +38,7 @@ func (h *Handler) Index(w http.ResponseWriter, r *http.Request) {
 	data := &TemplateData{
 		IPInfo:        "Can't identify your IP address.",
 		RequestHeader: &r.Header,
+		CurrentYear:   time.Now().Year(),
 	}
 
 	if clientIP != "" {
