@@ -11,13 +11,15 @@ COPY go.mod ./
 
 COPY . .
 
-# Version information
+# Build information
 ARG VERSION=dev
 ARG COMMIT=none
 ARG BUILD_DATE=unknown
+ARG TARGETOS
+ARG TARGETARCH
 
 # Build the binary
-RUN CGO_ENABLED=0 GOOS=linux go build \
+RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build \
     -ldflags "-X main.version=${VERSION} -X main.commit=${COMMIT} -X main.buildDate=${BUILD_DATE}" \
     -o bin/whatismyip ./cmd/whatismyip
 
